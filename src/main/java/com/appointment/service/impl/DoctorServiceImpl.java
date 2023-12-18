@@ -5,10 +5,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.appointment.dto.DoctorDTO;
 import com.appointment.entity.Doctor;
+import com.appointment.entity.Schedule;
 import com.appointment.repo.DoctorRepository;
 import com.appointment.service.DoctorService;
 
@@ -82,7 +85,22 @@ public class DoctorServiceImpl implements DoctorService {
 		return doctors.stream().map(this::convertToDTO).collect(Collectors.toList());
 	}
 
-	// Helper methods to convert between DTO and Entity
+	@Override
+	public List<Schedule> findSchedulesByDoctorNameAndSpecialty(String doctorName, String specialty) {
+		return doctorRepository.findSchedulesByDoctorNameAndSpecialty(doctorName, specialty);
+	}
+
+	@Override
+	public List<Schedule> findSchedulesByDoctorId(Long doctorId) {
+		return doctorRepository.findSchedulesByDoctorId(doctorId);
+	}
+
+	@Override
+	public Page<DoctorDTO> findAllByOrderBySpecialtyAsc(Pageable pageable) {
+		Page<Doctor> doctorsPage = doctorRepository.findAllByOrderBySpecialtyAsc(pageable);
+		return doctorsPage.map(this::convertToDTO); // Assuming convertToDTO exists in DoctorServiceImpl
+	}
+
 	private DoctorDTO convertToDTO(Doctor doctor) {
 		DoctorDTO doctorDTO = new DoctorDTO();
 		doctorDTO.setId(doctor.getId());
