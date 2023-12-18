@@ -3,6 +3,9 @@ package com.appointment.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.appointment.dto.DoctorDTO;
+import com.appointment.entity.Schedule;
 import com.appointment.service.DoctorService;
 
 import javassist.NotFoundException;
@@ -76,5 +81,26 @@ public class DoctorController {
 	public ResponseEntity<List<DoctorDTO>> getDoctorsBySpecialty(@PathVariable String specialty) {
 		List<DoctorDTO> doctors = doctorService.findDoctorsBySpecialty(specialty);
 		return new ResponseEntity<>(doctors, HttpStatus.OK);
+	}
+
+	@GetMapping("/schedules/byNameAndSpecialty")
+	public ResponseEntity<List<Schedule>> getSchedulesByDoctorNameAndSpecialty(@RequestParam String doctorName,
+			@RequestParam String specialty) {
+		List<Schedule> schedules = doctorService.findSchedulesByDoctorNameAndSpecialty(doctorName, specialty);
+		return new ResponseEntity<>(schedules, HttpStatus.OK);
+	}
+
+	@GetMapping("/schedules/byId/{doctorId}")
+	public ResponseEntity<List<Schedule>> getSchedulesByDoctorId(@PathVariable Long doctorId) {
+		List<Schedule> schedules = doctorService.findSchedulesByDoctorId(doctorId);
+		return new ResponseEntity<>(schedules, HttpStatus.OK);
+	}
+
+	@GetMapping("/sortedDoctors")
+	public ResponseEntity<Page<DoctorDTO>> getSortedDoctorsBySpecialty(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<DoctorDTO> sortedDoctors = doctorService.findAllByOrderBySpecialtyAsc(pageable);
+		return new ResponseEntity<>(sortedDoctors, HttpStatus.OK);
 	}
 }
