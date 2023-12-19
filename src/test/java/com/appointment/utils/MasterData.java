@@ -18,22 +18,19 @@ public class MasterData {
 		doctorDTO.setName("Dr. Smith");
 		doctorDTO.setHospitalName("City Hospital");
 		doctorDTO.setSpecialty("Pediatrics");
-		doctorDTO.setDailyTime("08:00-17:00"); // Example format for daily time (working hours)
+		doctorDTO.setDailyTime("08:00-17:00");
 		return doctorDTO;
 	}
 
 	public static List<DoctorDTO> getDoctorDTOList() {
 		List<DoctorDTO> doctorDTOList = new ArrayList<>();
-
 		DoctorDTO doctorDTO = new DoctorDTO();
 		doctorDTO.setId(1L);
 		doctorDTO.setName("Dr. Smith");
 		doctorDTO.setHospitalName("City Hospital");
 		doctorDTO.setSpecialty("Pediatrics");
-		doctorDTO.setDailyTime("08:00-17:00"); // Example format for daily time (working hours)
-
+		doctorDTO.setDailyTime("08:00-17:00");
 		doctorDTOList.add(doctorDTO);
-
 		return doctorDTOList;
 	}
 
@@ -41,31 +38,21 @@ public class MasterData {
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setId(1L);
 		scheduleDTO.setNameOfPatient("John Doe");
-		scheduleDTO.setDay("Monday");
-		scheduleDTO.setTime(LocalTime.parse("09:00")); // Example format for time (LocalTime)
-
-		// Assuming DoctorDTO is used in ScheduleDTO
+		scheduleDTO.setTime(LocalTime.parse("09:00"));
 		DoctorDTO doctorDTO = getDoctorDTO();
 		scheduleDTO.setDoctor(doctorDTO);
-
 		return scheduleDTO;
 	}
 
 	public static List<ScheduleDTO> getScheduleDTOList() {
 		List<ScheduleDTO> scheduleDTOList = new ArrayList<>();
-
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setId(1L);
 		scheduleDTO.setNameOfPatient("John Doe");
-		scheduleDTO.setDay("Monday");
-		scheduleDTO.setTime(LocalTime.parse("09:00")); // Example format for time (LocalTime)
-
-		// Assuming DoctorDTO is used in ScheduleDTO
+		scheduleDTO.setTime(LocalTime.parse("09:00"));
 		DoctorDTO doctorDTO = getDoctorDTO();
 		scheduleDTO.setDoctor(doctorDTO);
-
 		scheduleDTOList.add(scheduleDTO);
-
 		return scheduleDTOList;
 	}
 
@@ -75,7 +62,6 @@ public class MasterData {
 			mapper.registerModule(new JavaTimeModule());
 			mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 			final String jsonContent = mapper.writeValueAsString(obj);
-
 			return jsonContent;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
