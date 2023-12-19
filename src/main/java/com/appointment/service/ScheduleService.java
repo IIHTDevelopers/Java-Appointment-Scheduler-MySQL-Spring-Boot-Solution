@@ -1,10 +1,10 @@
 package com.appointment.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.appointment.dto.ScheduleDTO;
-
-import javassist.NotFoundException;
+import com.appointment.exception.NotFoundException;
 
 public interface ScheduleService {
 
@@ -18,7 +18,5 @@ public interface ScheduleService {
 
 	boolean deleteSchedule(Long id) throws NotFoundException;
 
-	List<ScheduleDTO> getDoctorScheduleByDay(Long doctorId, String day);
-
-	List<ScheduleDTO> getDoctorAppointments(Long doctorId, String day);
+	List<ScheduleDTO> getDoctorScheduleByDay(Long doctorId, LocalDate parsedDay);
 }
