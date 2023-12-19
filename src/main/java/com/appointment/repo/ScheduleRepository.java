@@ -11,6 +11,4 @@ import com.appointment.entity.Schedule;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 	List<Schedule> findByDoctorIdAndDay(Long doctorId, LocalDate day);
-
-	List<Schedule> findByDoctorIdAndDay(Long doctorId, String day);
 }
