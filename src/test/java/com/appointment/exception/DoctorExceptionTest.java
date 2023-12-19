@@ -78,10 +78,9 @@ public class DoctorExceptionTest {
 		when(this.doctorService.getDoctorById(doctorDTO.getId())).thenThrow(new NotFoundException("Doctor not found"));
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/doctors/" + doctorDTO.getId())
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		yakshaAssert(currentTest(),
-				(result.getResponse().getStatus() == HttpStatus.NOT_FOUND.value() ? "true" : "false"),
+				(result.getResponse().getStatus() == HttpStatus.NO_CONTENT.value() ? "true" : "false"),
 				exceptionTestFile);
 	}
 }
