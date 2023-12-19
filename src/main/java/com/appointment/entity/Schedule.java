@@ -1,15 +1,16 @@
 package com.appointment.entity;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "schedules")
@@ -26,7 +27,7 @@ public class Schedule {
 	private Doctor doctor;
 
 	@Column(nullable = false)
-	private String day;
+	private LocalDate day;
 
 	@Column(nullable = false)
 	private LocalTime time;
@@ -41,7 +42,7 @@ public class Schedule {
 		super();
 	}
 
-	public Schedule(Long id, String name, Doctor doctor, String day, LocalTime time, String timings,
+	public Schedule(Long id, String name, Doctor doctor, LocalDate day, LocalTime time, String timings,
 			String nameOfPatient) {
 		super();
 		this.id = id;
@@ -77,11 +78,11 @@ public class Schedule {
 		this.doctor = doctor;
 	}
 
-	public String getDay() {
+	public LocalDate getDay() {
 		return day;
 	}
 
-	public void setDay(String day) {
+	public void setDay(LocalDate day) {
 		this.day = day;
 	}
 
