@@ -21,9 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.appointment.dto.DoctorDTO;
 import com.appointment.entity.Schedule;
+import com.appointment.exception.NotFoundException;
 import com.appointment.service.DoctorService;
-
-import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/api/doctors")
