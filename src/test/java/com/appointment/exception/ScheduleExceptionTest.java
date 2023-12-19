@@ -84,7 +84,7 @@ public class ScheduleExceptionTest {
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
 		yakshaAssert(currentTest(),
-				(result.getResponse().getStatus() == HttpStatus.NOT_FOUND.value() ? "true" : "false"),
+				(result.getResponse().getStatus() == HttpStatus.NO_CONTENT.value() ? "true" : "false"),
 				exceptionTestFile);
 	}
 }
