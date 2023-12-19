@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 import com.appointment.dto.DoctorDTO;
 import com.appointment.entity.Doctor;
 import com.appointment.entity.Schedule;
+import com.appointment.exception.NotFoundException;
 import com.appointment.repo.DoctorRepository;
 import com.appointment.service.DoctorService;
-
-import javassist.NotFoundException;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
