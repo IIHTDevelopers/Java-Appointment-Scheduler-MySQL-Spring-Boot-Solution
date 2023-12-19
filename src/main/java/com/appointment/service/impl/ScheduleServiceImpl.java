@@ -1,5 +1,6 @@
 package com.appointment.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,10 +12,9 @@ import com.appointment.dto.DoctorDTO;
 import com.appointment.dto.ScheduleDTO;
 import com.appointment.entity.Doctor;
 import com.appointment.entity.Schedule;
+import com.appointment.exception.NotFoundException;
 import com.appointment.repo.ScheduleRepository;
 import com.appointment.service.ScheduleService;
-
-import javassist.NotFoundException;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -88,12 +88,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 	}
 
-	@Override
-	public List<ScheduleDTO> getDoctorAppointments(Long doctorId, String day) {
-		List<Schedule> appointments = scheduleRepository.findByDoctorIdAndDay(doctorId, day);
-		return appointments.stream().map(this::convertToDTO).collect(Collectors.toList());
-	}
-
 	private ScheduleDTO convertToDTO(Schedule schedule) {
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setId(schedule.getId());
@@ -135,7 +129,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<ScheduleDTO> getDoctorScheduleByDay(Long doctorId, String day) {
+	public List<ScheduleDTO> getDoctorScheduleByDay(Long doctorId, LocalDate day) {
 		List<Schedule> doctorSchedules = scheduleRepository.findByDoctorIdAndDay(doctorId, day);
 		return doctorSchedules.stream().map(this::convertToDTO).collect(Collectors.toList());
 	}
