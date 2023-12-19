@@ -6,10 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.appointment.dto.DoctorDTO;
-import com.appointment.entity.Doctor;
 import com.appointment.entity.Schedule;
-
-import javassist.NotFoundException;
+import com.appointment.exception.NotFoundException;
 
 public interface DoctorService {
 
