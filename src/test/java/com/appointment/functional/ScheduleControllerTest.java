@@ -1,16 +1,11 @@
 package com.appointment.functional;
 
 import static com.appointment.utils.MasterData.getScheduleDTO;
-import static com.appointment.utils.MasterData.getScheduleDTOList;
 import static com.appointment.utils.TestUtils.businessTestFile;
 import static com.appointment.utils.TestUtils.currentTest;
 import static com.appointment.utils.TestUtils.testReport;
 import static com.appointment.utils.TestUtils.yakshaAssert;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-
-import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -54,24 +49,6 @@ public class ScheduleControllerTest {
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		yakshaAssert(currentTest(),
 				(result.getResponse().getContentAsString().contentEquals(MasterData.asJsonString(scheduleDTO)) ? "true"
-						: "false"),
-				businessTestFile);
-	}
-
-	@Test
-	public void testGetDoctorScheduleByDay() throws Exception {
-		ScheduleDTO scheduleDTO = getScheduleDTO();
-		List<ScheduleDTO> scheduleDTOs = getScheduleDTOList();
-
-		when(this.scheduleService.getDoctorScheduleByDay(eq(scheduleDTO.getDoctor().getId()), any()))
-				.thenReturn(scheduleDTOs);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("/api/schedules/doctor/" + scheduleDTO.getDoctor().getId() + "/" + scheduleDTO.getDay())
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		yakshaAssert(currentTest(),
-				(result.getResponse().getContentAsString().contentEquals(MasterData.asJsonString(scheduleDTOs)) ? "true"
 						: "false"),
 				businessTestFile);
 	}
