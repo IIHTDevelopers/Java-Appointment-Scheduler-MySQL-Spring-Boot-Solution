@@ -1,5 +1,6 @@
 package com.appointment.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.appointment.dto.ScheduleDTO;
+import com.appointment.exception.NotFoundException;
 import com.appointment.service.ScheduleService;
-
-import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/api/schedules")
@@ -63,7 +63,9 @@ public class ScheduleController {
 
 	@GetMapping("/doctor/{id}/{day}")
 	public ResponseEntity<List<ScheduleDTO>> getDoctorScheduleByDay(@PathVariable Long id, @PathVariable String day) {
-		List<ScheduleDTO> doctorSchedule = scheduleService.getDoctorScheduleByDay(id, day);
+		LocalDate parsedDay = LocalDate.parse(day);
+		List<ScheduleDTO> doctorSchedule = scheduleService.getDoctorScheduleByDay(id, parsedDay);
 		return new ResponseEntity<>(doctorSchedule, HttpStatus.OK);
 	}
+
 }
