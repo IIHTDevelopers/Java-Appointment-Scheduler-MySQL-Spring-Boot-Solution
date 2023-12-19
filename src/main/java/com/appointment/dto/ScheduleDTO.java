@@ -1,9 +1,10 @@
 package com.appointment.dto;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class ScheduleDTO {
 	private Long id;
@@ -15,7 +16,7 @@ public class ScheduleDTO {
 	private DoctorDTO doctor;
 
 	@NotNull(message = "Day is required")
-	private String day;
+	private LocalDate day;
 
 	@NotNull(message = "Time is required")
 	private LocalTime time;
@@ -30,7 +31,7 @@ public class ScheduleDTO {
 	}
 
 	public ScheduleDTO(Long id, @NotBlank(message = "Name is required") String name,
-			@NotNull(message = "Doctor is required") DoctorDTO doctor, @NotNull(message = "Day is required") String day,
+			@NotNull(message = "Doctor is required") DoctorDTO doctor, @NotNull(message = "Day is required") LocalDate day,
 			@NotNull(message = "Time is required") LocalTime time,
 			@NotBlank(message = "Timings are required") String timings, String nameOfPatient) {
 		super();
@@ -67,11 +68,11 @@ public class ScheduleDTO {
 		this.doctor = doctor;
 	}
 
-	public String getDay() {
+	public LocalDate getDay() {
 		return day;
 	}
 
-	public void setDay(String day) {
+	public void setDay(LocalDate day) {
 		this.day = day;
 	}
 
